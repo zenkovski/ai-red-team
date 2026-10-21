@@ -29,3 +29,6 @@ Další útoky stejného nálezu:
 ## Návrh opravy
 `require_key` v `tools/api.py` (řádek 101) volá `secrets.compare_digest(key, k)` na `str`. Pro `str` s ne-ASCII znaky to vyhodí `TypeError`. Oprava: porovnávat bajty, `secrets.compare_digest(key.encode("utf-8"), k.encode("utf-8"))`.
 Dopad: klíč se tím neobejde (žádný přístup bez klíče), ale kdokoli bez klíče může na požádání vyrobit 500 a stack trace v logu (šum v monitoringu, falešné poplachy). Regresní test do `tests/test_api.py`: ne-ASCII klíč → 401.
+
+## Stav
+**Opraveno** 21. 10. 2026 v RAG-Demo 5f76e41, s regresním testem. Klíč se porovnává jako bajty (compare_digest zůstává). Ne-ASCII klíč = 401.

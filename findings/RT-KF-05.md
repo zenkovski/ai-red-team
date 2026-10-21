@@ -35,3 +35,6 @@ Odlišná příčina než RT-KF-04: tam padá jádro, tady padá veřejná cesta
 - KF-F-03 (PROLOMENO): total = NaN. crash: InvalidOperation: [<class 'decimal.InvalidOperation'>]
 - KF-F-04 (PROLOMENO): vat_rate = 1E+999999 (přetečení). crash: Overflow: [<class 'decimal.Overflow'>]
 - KF-F-05 (PROLOMENO): subtotal = prázdný řetězec. crash: InvalidOperation: [<class 'decimal.ConversionSyntax'>]
+
+## Stav
+**Opraveno** 21. 10. 2026 v Kontrola-Faktur 86b53be, s regresním testem. Hodnoty z AI čtečky jdou přes Invoice.from_dict. /v1/read vrací 422, read-and-check REVIEW (EXTRACTION_FAILED).

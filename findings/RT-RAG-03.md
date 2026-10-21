@@ -22,3 +22,6 @@
 
 ## Návrh opravy
 Je to zapsané v `security/threat-model.md` (T8: „No Content-Security-Policy“). Harness potvrzuje, že stav trvá. Všech 15 XSS útoků přes odpověď/přepis/chybu proti lokálnímu webu bylo odraženo (`esc()` drží), takže CSP je teď jen druhá linie. Oprava: `vercel.json` s hlavičkou `Content-Security-Policy`. Stránka má inline skripty a načítá d3 z cdnjs a ikony z unpkg, takže nutně `script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com` (lepší: přesunout inline skripty do souboru a použít hash/nonce). Přidat `frame-ancestors 'none'`.
+
+## Stav
+**Opraveno** 21. 10. 2026 v RAG-Demo 5f76e41, s regresním testem. site/vercel.json: CSP s hashi inline skriptů, nosniff, X-Frame-Options DENY, Referrer-Policy. Ověřeno lokálně Playwrightem (0 porušení). Na živém webu až po nasazení.

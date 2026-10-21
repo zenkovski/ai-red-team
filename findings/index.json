@@ -1,0 +1,209 @@
+[
+ {
+  "id": "RT-KF-01",
+  "app": "kontrola-faktur",
+  "severity": "Medium",
+  "title_cs": "Sazba DPH 50 %, všechny součty sedí (neexistující sazba)",
+  "title_en": "50 % VAT rate passes when all sums match (rate does not exist)",
+  "status": "fixed",
+  "fix": "Kontrola-Faktur 86b53be"
+ },
+ {
+  "id": "RT-KF-02",
+  "app": "kontrola-faktur",
+  "severity": "Low",
+  "title_cs": "Anglická parafráze pokynu bez klíčových slov strážce",
+  "title_en": "English paraphrase of an AI instruction slips past the guard",
+  "status": "known",
+  "fix": ""
+ },
+ {
+  "id": "RT-KF-03",
+  "app": "kontrola-faktur",
+  "severity": "Low",
+  "title_cs": "Cena toneru o 0,99 % vyšší než v objednávce",
+  "title_en": "Unit price 0.99 % above the order passes silently (1 % tolerance)",
+  "status": "known",
+  "fix": ""
+ },
+ {
+  "id": "RT-KF-04",
+  "app": "kontrola-faktur",
+  "severity": "Medium",
+  "title_cs": "Množství NaN (nečíslo) v položce",
+  "title_en": "Quantity NaN crashes the rule engine",
+  "status": "fixed",
+  "fix": "Kontrola-Faktur 86b53be"
+ },
+ {
+  "id": "RT-KF-05",
+  "app": "kontrola-faktur",
+  "severity": "Medium",
+  "title_cs": "Hodnoty z AI čtečky se nevalidují: NaN, Infinity nebo přetečení shodí kontrolu (HTTP 500 / chyba MCP)",
+  "title_en": "NaN / Infinity / overflow from the AI reader crash the check (HTTP 500)",
+  "status": "fixed",
+  "fix": "Kontrola-Faktur 86b53be"
+ },
+ {
+  "id": "RT-KF-06",
+  "app": "kontrola-faktur",
+  "severity": "Medium",
+  "title_cs": "Poškozené, prázdné nebo falešné PDF vyhodí neošetřenou výjimku (HTTP 500 / pád MCP nástroje)",
+  "title_en": "Broken, empty or fake PDF raises an unhandled exception (HTTP 500)",
+  "status": "fixed",
+  "fix": "Kontrola-Faktur 86b53be"
+ },
+ {
+  "id": "RT-KF-07",
+  "app": "kontrola-faktur",
+  "severity": "Low",
+  "title_cs": "Strážce (guard.py) obejde 33 ze 40 variant: parafráze, jiné jazyky, homoglyfy, kódování, rozdělení slov",
+  "title_en": "Injection guard misses 33 of 40 bypass variants",
+  "status": "known",
+  "fix": ""
+ },
+ {
+  "id": "RT-KF-08",
+  "app": "kontrola-faktur",
+  "severity": "Low",
+  "title_cs": "Bez limitu velikosti `document_text`: 5 MB textu zdrží strážce o 7,7 s",
+  "title_en": "No size limit on document text: 5 MB delays the guard by 7.7 s",
+  "status": "known",
+  "fix": ""
+ },
+ {
+  "id": "RT-KF-09",
+  "app": "kontrola-faktur",
+  "severity": "Low",
+  "title_cs": "Osamocený surrogát v čísle faktury (\\ud800) shodí `POST /v1/check` na HTTP 500",
+  "title_en": "Lone surrogate in invoice number gives HTTP 500",
+  "status": "known",
+  "fix": ""
+ },
+ {
+  "id": "RT-KF-10",
+  "app": "kontrola-faktur",
+  "severity": "Low",
+  "title_cs": "Čísla faktur bez latinských písmen a číslic mají stejný klíč: falešná DUPLICATE_NUMBER (STOP)",
+  "title_en": "Invoice numbers without Latin letters or digits collide: false DUPLICATE",
+  "status": "known",
+  "fix": ""
+ },
+ {
+  "id": "RT-KF-11",
+  "app": "kontrola-faktur",
+  "severity": "Low",
+  "title_cs": "Dodavatel, který sečte přesné součiny a zaokrouhlí jednou, dostane falešné SUBTOTAL_MISMATCH (STOP)",
+  "title_en": "Supplier rounding once at the end gets a false SUBTOTAL_MISMATCH",
+  "status": "known",
+  "fix": ""
+ },
+ {
+  "id": "RT-KF-12",
+  "app": "kontrola-faktur",
+  "severity": "Low",
+  "title_cs": "Chybně zapsaný účet '-2400123456/2010' (zbytečná pomlčka) se bere jako ten známý",
+  "title_en": "Malformed account '-2400123456/2010' is accepted as the known one",
+  "status": "known",
+  "fix": ""
+ },
+ {
+  "id": "RT-KF-13",
+  "app": "kontrola-faktur",
+  "severity": "Low",
+  "title_cs": "IČO s horním indexem (²9143705) shodí `ico_valid` (isdigit() vs int())",
+  "title_en": "Superscript digit in company ID crashes the check-digit test",
+  "status": "known",
+  "fix": ""
+ },
+ {
+  "id": "RT-KF-14",
+  "app": "kontrola-faktur",
+  "severity": "Low",
+  "title_cs": "Web: pole `seconds` a `image` se vkládají do innerHTML bez `esc` (hardening, skript se spustí)",
+  "title_en": "Web: two server-built fields reach innerHTML without escaping",
+  "status": "known",
+  "fix": ""
+ },
+ {
+  "id": "RT-RAG-01",
+  "app": "rag-demo",
+  "severity": "Medium",
+  "title_cs": "Klíč `X-API-Key` s ne-ASCII znakem shodí REST API na HTTP 500",
+  "title_en": "Non-ASCII X-API-Key crashes the REST API (HTTP 500)",
+  "status": "fixed",
+  "fix": "RAG-Demo 5f76e41"
+ },
+ {
+  "id": "RT-RAG-02",
+  "app": "rag-demo",
+  "severity": "Low",
+  "title_cs": "Strop těla 16 KB se dá obejít požadavkem po částech (chunked)",
+  "title_en": "16 KB body limit bypassed with a chunked request",
+  "status": "known",
+  "fix": ""
+ },
+ {
+  "id": "RT-RAG-03",
+  "app": "rag-demo",
+  "severity": "Medium",
+  "title_cs": "Živý web nemá Content-Security-Policy (známé jako T8, ale nezmírněné)",
+  "title_en": "Live site has no Content-Security-Policy",
+  "status": "fixed",
+  "fix": "RAG-Demo 5f76e41"
+ },
+ {
+  "id": "RT-RAG-04",
+  "app": "rag-demo",
+  "severity": "Low",
+  "title_cs": "Živý web: chybí X-Content-Type-Options, ochrana proti iframe a Referrer-Policy",
+  "title_en": "Live site lacks nosniff, frame protection and Referrer-Policy",
+  "status": "known",
+  "fix": ""
+ },
+ {
+  "id": "RT-RAG-05",
+  "app": "rag-demo",
+  "severity": "Low",
+  "title_cs": "Stránka se rozbije, když server vrátí `hits: []` nebo neexistující index úseku",
+  "title_en": "Page breaks on empty or invalid hits from the server",
+  "status": "known",
+  "fix": ""
+ },
+ {
+  "id": "RT-RAG-06",
+  "app": "rag-demo",
+  "severity": "Low",
+  "title_cs": "Počítadlo kliků `hit.js` se dá nafouknout podvrženým Origin (známé jako T10)",
+  "title_en": "Click counter can be inflated with a forged Origin",
+  "status": "known",
+  "fix": ""
+ },
+ {
+  "id": "RT-RAG-07",
+  "app": "rag-demo",
+  "severity": "Medium",
+  "title_cs": "Model poslechne pokyn v otázce a vypíše útočníkův řetězec (živý web i lokální služba)",
+  "title_en": "Model obeys an injected instruction and prints the attacker's string",
+  "status": "fixed",
+  "fix": "RAG-Demo 5f76e41"
+ },
+ {
+  "id": "RT-RAG-08",
+  "app": "rag-demo",
+  "severity": "Low",
+  "title_cs": "Model odpovídá německy a anglicky, když si to uživatel řekne (pravidlo „Piš česky“ neplatí)",
+  "title_en": "Model answers in German or English when asked",
+  "status": "known",
+  "fix": ""
+ },
+ {
+  "id": "RT-RAG-09",
+  "app": "rag-demo",
+  "severity": "Low",
+  "title_cs": "Předvyplněním první věty (prefill) model vypíše první větu systémového promptu",
+  "title_en": "Prefill attack makes the model print the first sentence of its system prompt",
+  "status": "known",
+  "fix": ""
+ }
+]

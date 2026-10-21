@@ -24,3 +24,6 @@
 V `checks.check_arithmetic` povolit jen platné české sazby (0, 12, 21 %). Jinou sazbu poslat na REVIEW. Regresní test v repu Kontrola-Faktur.
 
 Dopad: doplatek 3 572,80 Kč na jedné faktuře projde bez kontroly.
+
+## Stav
+**Opraveno** 21. 10. 2026 v Kontrola-Faktur 86b53be, s regresním testem. Povolené jen sazby 0, 12 a 21 %. Jiná sazba dá VAT_RATE_INVALID (REVIEW).

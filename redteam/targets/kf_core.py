@@ -5,7 +5,7 @@ Attack input:
   base      : file name in ../Kontrola-Faktur/data/invoices/ (default 01-v-poradku.json)
   preload   : list of invoices processed first in the same store (duplicates, split billing)
   raw_text  : optional document text, goes to the guard
-Observation: {"decision": "APPROVE|REVIEW|STOP", "codes": [...], "error": None | "Type: msg"}
+Observation: {"decision": "APPROVE|REVIEW|STOP|REJECTED", "codes": [...], "error": None | "Type: msg"}
 """
 from __future__ import annotations
 
@@ -44,7 +44,12 @@ def run(attack: dict, ctx=None) -> dict:
     try:
         for pre in inp.get("preload", []):
             process(Invoice.from_dict(build_invoice(pre)), books(), store)
-        inv = Invoice.from_dict(build_invoice(inp))
+        try:
+            inv = Invoice.from_dict(build_invoice(inp))
+        except (ValueError, TypeError, KeyError) as e:
+            # clean input rejection at the model boundary = what the API turns into 422
+            return {"decision": "REJECTED", "codes": ["INPUT_REJECTED"], "error": None,
+                    "rejected": f"{type(e).__name__}: {e}"}
         res = process(inv, books(), store, raw_text=inp.get("raw_text"))
     except Exception as e:  # a crash is an observation, not a harness failure
         return {"decision": None, "codes": [], "error": f"{type(e).__name__}: {e}"}

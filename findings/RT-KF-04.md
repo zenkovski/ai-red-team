@@ -21,3 +21,6 @@
 
 ## Návrh opravy
 V `Line.from_dict` odmítnout NaN a Infinity (`Decimal.is_finite()`), vrátit chybu vstupu (422). Ověřit ve fázi 1, jestli REST a MCP vrací 500.
+
+## Stav
+**Opraveno** 21. 10. 2026 v Kontrola-Faktur 86b53be, s regresním testem. Nová funkce to_decimal() na hranici modelu odmítne NaN, Infinity a čísla nad 1e15 (ValueError → 422).

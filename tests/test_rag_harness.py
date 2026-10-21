@@ -81,12 +81,12 @@ def test_rest_control_and_auth():
     assert rag_rest.run(A(path="/api/v1/documents/x", key="wrong"))["status"] == 401
 
 
-def test_rest_known_hole_is_visible_to_the_harness():
-    """The non-ASCII key makes the app answer 500; the adapter must report exactly that (not hide it)."""
+def test_rest_non_ascii_key_fixed_rt_rag_01():
+    """RT-RAG-01 was a 500 on a non-ASCII key; fixed in RAG-Demo 5f76e41, now 401."""
     obs = rag_rest.run(A(path="/api/v1/documents/x", key="none", headers_latin1={"X-API-Key": "é"}))
-    assert obs["status"] == 500
-    ok, _ = judge(obs, [{"oracle": "http_status_in", "allowed": [401]}])
-    assert not ok
+    assert obs["status"] == 401
+    # the oracle still flags a 500 if it ever comes back
+    assert not judge({"status": 500}, [{"oracle": "http_status_in", "allowed": [401]}])[0]
 
 
 def test_rest_traversal_is_not_found():

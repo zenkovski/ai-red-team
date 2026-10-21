@@ -29,3 +29,6 @@ V `service.read` obalit `pdf_text` do try/except a převést na `ExtractionError
 - KF-R-17 (PROLOMENO): POST /v1/read: poškozené PDF (%PDF- a smetí). FAIL http_status_in: status=500, allowed [400, 415, 422]
 - KF-M-11 (PROLOMENO): Textový soubor s příponou .pdf (falešná přípona). crash: FileDataError: Failed to open file 'C:\\Users\\lvcspc\\AppData\\Local\\Temp\\rt-kf-j671x3u0\\allowed\\fake.pdf'.
 - KF-M-13 (PROLOMENO): Prázdný soubor .pdf. crash: EmptyFileError: Cannot open empty file: filename='C:\\Users\\lvcspc\\AppData\\Local\\Temp\\rt-kf-j671x3u0\\allowed\\empty.pdf'.
+
+## Stav
+**Opraveno** 21. 10. 2026 v Kontrola-Faktur 86b53be, s regresním testem. Chyba knihovny fitz se mění na ExtractionError s českou hláškou (4xx místo 500).
