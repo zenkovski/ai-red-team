@@ -29,7 +29,7 @@ Attacks are data. Pass or fail is decided by code, never by an AI.
 
 \* Recorded before the fixes. The RAG fixes (CSP headers, citation guard) are in the repo with tests and reach these rows after deploy.
 
-`kf_core` scores low on purpose: it holds 40 injection-guard bypass variants and fuzz cases built to find weak spots.
+`kf_core` includes 42 **boundary probes** (40 injection-guard bypass variants and 1 price-tolerance probe, plus a control). They look for where a secondary layer gives up, so most get through by design: the guard only raises a case to a human, the rules decide. Without them: **281 of 305 real attacks defended after fixes.**
 
 **23 findings, 7 Medium, 0 High. All 7 Medium are fixed** in the app repos, each with a regression test.
 The rest are Low and recorded as known. See [`findings/`](findings/).

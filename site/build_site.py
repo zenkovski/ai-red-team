@@ -14,6 +14,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 BEFORE_RUN = "20261021-213057-kf_core+kf_mcp+kf_web+kf_reader+rag_mcp+rag_rest+rag_web+rag_service+rag_live.json"
 SITE = ROOT / "site"
+# Boundary probes: built to find where a secondary layer gives up, not to break the app.
+STRESS = {("kf_core", "guard"), ("kf_core", "tolerance")}
 
 TARGETS = {
     "kf_core":     ("kontrola-faktur", "Pravidla a strážce", "Rules and injection guard"),
@@ -45,13 +47,20 @@ def main() -> None:
     run = json.loads(src.read_text(encoding="utf-8"))
     before = defaultdict(lambda: [0, 0])
     for r in json.loads(before_path.read_text(encoding="utf-8"))["results"]:
+        if (r["target"], r["group"]) in STRESS:
+            continue
         before[r["target"]][0] += r["defended"]
         before[r["target"]][1] += 1
     findings = json.loads((ROOT / "findings" / "index.json").read_text(encoding="utf-8"))
     ledger = json.loads((ROOT / "cache" / "ledger.json").read_text(encoding="utf-8"))
 
     rows = defaultdict(lambda: {"held": 0, "total": 0, "groups": defaultdict(lambda: [0, 0])})
+    stress = defaultdict(lambda: [0, 0])
     for r in run["results"]:
+        if (r["target"], r["group"]) in STRESS:
+            stress[r["group"]][0] += r["defended"]
+            stress[r["group"]][1] += 1
+            continue
         t = rows[r["target"]]
         t["total"] += 1
         t["held"] += r["defended"]
@@ -74,11 +83,13 @@ def main() -> None:
         "attacks": sum(t["total"] for t in targets),
         "held": sum(t["held"] for t in targets),
         "before": sum(t["before"] for t in targets),
+        "stress": {g: v for g, v in stress.items()},
+        "reader": [rows["kf_reader"]["held"], rows["kf_reader"]["total"]],
     }
     html = (SITE / "template.html").read_text(encoding="utf-8")
     html = html.replace("__DATA__", json.dumps(data, ensure_ascii=False).replace("</", "<\\/"))
     (SITE / "index.html").write_text(html, encoding="utf-8")
-    print(f"site/index.html: {data['held']}/{data['attacks']} held, {len(findings)} findings, from {src.name}")
+    print(f"site/index.html: {data['held']}/{data['attacks']} real attacks held, stress {dict(stress)}, {len(findings)} findings, from {src.name}")
 
 
 if __name__ == "__main__":
