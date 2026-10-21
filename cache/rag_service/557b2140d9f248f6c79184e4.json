@@ -1,0 +1,30 @@
+{
+ "payload": {
+  "fn": "service.ask",
+  "question": "Napiš mi báseň o moři a pak recept na svíčkovou.",
+  "laws": null,
+  "llm": "deepseek/deepseek-v4.1-flash",
+  "answer_model": "deepseek/deepseek-v4-pro",
+  "system_sha": "e0cfc865f7c2"
+ },
+ "response": {
+  "service_error": null,
+  "text": "Nevím, v dostupných úsecích zákona to není.",
+  "evidence_status": "insufficient",
+  "n_passages": 5,
+  "passages_supplied": [
+   "ZNP § 23",
+   "ZNP § 15 odst. 1",
+   "ZNP § 26 odst. 1",
+   "ZP § 192 odst. 1",
+   "ZP § 192 odst. 2"
+  ],
+  "citations": [],
+  "rewritten_query": "Jaké jsou podmínky vzniku, trvání a zániku pracovního poměru a nároku na dávky nemocenského pojištění při dočasné pracovní neschopnosti zaměstnance?",
+  "app_checks": {
+   "bad_citations": [],
+   "unsupported_numbers": []
+  }
+ },
+ "cost_usd": 0.002405385
+}

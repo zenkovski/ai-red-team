@@ -1,0 +1,938 @@
+{
+ "target": "rag_web",
+ "note": "RAG-Demo site: XSS (mocked API), hit.js in node, passive live headers.",
+ "attacks": [
+  {
+   "id": "RAG-W-01",
+   "group": "xss",
+   "severity": "High",
+   "title": "XSS pres text odpovedi: img onerror v odpovedi",
+   "input": {
+    "kind": "xss",
+    "mock": {
+     "patch": {
+      "answer": "Odpoved {P} [1]"
+     }
+    }
+   },
+   "checks": [
+    {
+     "oracle": "no_script_exec"
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-02",
+   "group": "xss",
+   "severity": "High",
+   "title": "XSS pres text odpovedi: script tag v odpovedi",
+   "input": {
+    "kind": "xss",
+    "mock": {
+     "patch": {
+      "answer": "<script>window.__pwned=1</script> [1]"
+     }
+    }
+   },
+   "checks": [
+    {
+     "oracle": "no_script_exec"
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-03",
+   "group": "xss",
+   "severity": "High",
+   "title": "XSS pres text odpovedi: svg onload v odpovedi",
+   "input": {
+    "kind": "xss",
+    "mock": {
+     "patch": {
+      "answer": "<svg onload=window.__pwned=1> [1]"
+     }
+    }
+   },
+   "checks": [
+    {
+     "oracle": "no_script_exec"
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-04",
+   "group": "xss",
+   "severity": "High",
+   "title": "XSS pres text odpovedi: img v tucnem textu **...**",
+   "input": {
+    "kind": "xss",
+    "mock": {
+     "patch": {
+      "answer": "**{P}** [1]"
+     }
+    }
+   },
+   "checks": [
+    {
+     "oracle": "no_script_exec"
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-05",
+   "group": "xss",
+   "severity": "High",
+   "title": "XSS pres text odpovedi: payload hned za citaci",
+   "input": {
+    "kind": "xss",
+    "mock": {
+     "patch": {
+      "answer": "[1]{P}"
+     }
+    }
+   },
+   "checks": [
+    {
+     "oracle": "no_script_exec"
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-06",
+   "group": "xss",
+   "severity": "High",
+   "title": "XSS pres text odpovedi: payload uvnitr hranatych zavorek",
+   "input": {
+    "kind": "xss",
+    "mock": {
+     "patch": {
+      "answer": "[{P}]"
+     }
+    }
+   },
+   "checks": [
+    {
+     "oracle": "no_script_exec"
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-07",
+   "group": "xss",
+   "severity": "High",
+   "title": "XSS pres text odpovedi: rozbiti atributu uvozovkou",
+   "input": {
+    "kind": "xss",
+    "mock": {
+     "patch": {
+      "answer": "\" onmouseover=\"window.__pwned=1\" x=\" [1]"
+     }
+    }
+   },
+   "checks": [
+    {
+     "oracle": "no_script_exec"
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-08",
+   "group": "xss",
+   "severity": "High",
+   "title": "XSS pres text odpovedi: iframe srcdoc",
+   "input": {
+    "kind": "xss",
+    "mock": {
+     "patch": {
+      "answer": "<iframe srcdoc=\"<script>parent.__pwned=1</script>\"></iframe> [1]"
+     }
+    }
+   },
+   "checks": [
+    {
+     "oracle": "no_script_exec"
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-09",
+   "group": "xss",
+   "severity": "High",
+   "title": "XSS pres text odpovedi: details ontoggle",
+   "input": {
+    "kind": "xss",
+    "mock": {
+     "patch": {
+      "answer": "<details open ontoggle=window.__pwned=1> [1]"
+     }
+    }
+   },
+   "checks": [
+    {
+     "oracle": "no_script_exec"
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-10",
+   "group": "xss",
+   "severity": "High",
+   "title": "XSS pres text odpovedi: HTML entity (nesmi se dekodovat na tag)",
+   "input": {
+    "kind": "xss",
+    "mock": {
+     "patch": {
+      "answer": "&lt;img src=x onerror=window.__pwned=1&gt; [1]"
+     }
+    }
+   },
+   "checks": [
+    {
+     "oracle": "no_script_exec"
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-11",
+   "group": "xss",
+   "severity": "High",
+   "title": "XSS pres text odpovedi: javascript: odkaz jako markdown",
+   "input": {
+    "kind": "xss",
+    "mock": {
+     "patch": {
+      "answer": "[klik](javascript:window.__pwned=1) [1]"
+     }
+    }
+   },
+   "checks": [
+    {
+     "oracle": "no_script_exec"
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-12",
+   "group": "xss",
+   "severity": "High",
+   "title": "XSS pres text odpovedi: citace [99999] mimo dodane useky",
+   "input": {
+    "kind": "xss",
+    "mock": {
+     "patch": {
+      "answer": "Text [99999] {P}"
+     }
+    }
+   },
+   "checks": [
+    {
+     "oracle": "no_script_exec"
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-13",
+   "group": "xss",
+   "severity": "High",
+   "title": "XSS pres pole rewritten (prepis otazky)",
+   "input": {
+    "kind": "xss",
+    "mock": {
+     "patch": {
+      "rewritten": "{P}"
+     }
+    }
+   },
+   "checks": [
+    {
+     "oracle": "no_script_exec"
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-14",
+   "group": "xss",
+   "severity": "High",
+   "title": "XSS pres chybovou hlasku serveru",
+   "input": {
+    "kind": "xss",
+    "wait": "err",
+    "mock": {
+     "status": 400,
+     "error": "{P}"
+    }
+   },
+   "checks": [
+    {
+     "oracle": "no_script_exec"
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-15",
+   "group": "xss",
+   "severity": "High",
+   "title": "XSS pres chybu s HTTP 502 a odpovedi v HTML",
+   "input": {
+    "kind": "xss",
+    "wait": "err",
+    "mock": {
+     "status": 502,
+     "error": "<svg onload=window.__pwned=1>"
+    }
+   },
+   "checks": [
+    {
+     "oracle": "no_script_exec"
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-16",
+   "group": "robustness",
+   "severity": "Low",
+   "title": "Server vrati prazdnou odpoved (model muze vratit prazdny text)",
+   "input": {
+    "kind": "xss",
+    "mock": {
+     "patch": {
+      "answer": ""
+     }
+    }
+   },
+   "checks": [
+    {
+     "oracle": "no_script_exec"
+    },
+    {
+     "oracle": "no_page_error"
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-17",
+   "group": "robustness",
+   "severity": "Low",
+   "title": "Server vrati hits = [] (zadny nalezeny usek)",
+   "input": {
+    "kind": "xss",
+    "mock": {
+     "patch": {
+      "hits": []
+     }
+    }
+   },
+   "checks": [
+    {
+     "oracle": "no_script_exec"
+    },
+    {
+     "oracle": "no_page_error"
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-18",
+   "group": "robustness",
+   "severity": "Low",
+   "title": "Server vrati hits s neexistujicim indexem useku",
+   "input": {
+    "kind": "xss",
+    "mock": {
+     "patch": {
+      "hits": [
+       [
+        999999,
+        0.5
+       ]
+      ]
+     }
+    }
+   },
+   "checks": [
+    {
+     "oracle": "no_script_exec"
+    },
+    {
+     "oracle": "no_page_error"
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-19",
+   "group": "control",
+   "severity": "High",
+   "title": "Kontrola hit.js: pripravena otazka se pocita (jinak harness lze)",
+   "input": {
+    "kind": "hit_js",
+    "origin": "https://lukas-rag.vercel.app",
+    "body": {
+     "q": "$PRESET0",
+     "src": "preset"
+    }
+   },
+   "checks": [
+    {
+     "oracle": "http_status_in",
+     "allowed": [
+      204
+     ]
+    },
+    {
+     "oracle": "field_equals",
+     "field": "store_calls",
+     "value": 1
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-20",
+   "group": "hit_js",
+   "severity": "Medium",
+   "title": "hit.js: cizi retezec (regrese opravy z 16. 10.)",
+   "input": {
+    "kind": "hit_js",
+    "origin": "https://lukas-rag.vercel.app",
+    "body": {
+     "q": "cizi text, ktery neni pripravena otazka"
+    }
+   },
+   "checks": [
+    {
+     "oracle": "http_status_in",
+     "allowed": [
+      204,
+      403
+     ]
+    },
+    {
+     "oracle": "field_equals",
+     "field": "store_calls",
+     "value": 0
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-21",
+   "group": "hit_js",
+   "severity": "Medium",
+   "title": "hit.js: pripravena otazka + pripony",
+   "input": {
+    "kind": "hit_js",
+    "origin": "https://lukas-rag.vercel.app",
+    "body": {
+     "q": "$PRESET0 DOPLNEK"
+    }
+   },
+   "checks": [
+    {
+     "oracle": "http_status_in",
+     "allowed": [
+      204,
+      403
+     ]
+    },
+    {
+     "oracle": "field_equals",
+     "field": "store_calls",
+     "value": 0
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-22",
+   "group": "hit_js",
+   "severity": "Medium",
+   "title": "hit.js: 1 MB retezec",
+   "input": {
+    "kind": "hit_js",
+    "origin": "https://lukas-rag.vercel.app",
+    "body": {
+     "q": {
+      "$repeat": [
+       "x",
+       1000000
+      ]
+     }
+    }
+   },
+   "checks": [
+    {
+     "oracle": "http_status_in",
+     "allowed": [
+      204,
+      403
+     ]
+    },
+    {
+     "oracle": "field_equals",
+     "field": "store_calls",
+     "value": 0
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-23",
+   "group": "hit_js",
+   "severity": "Medium",
+   "title": "hit.js: q = __proto__",
+   "input": {
+    "kind": "hit_js",
+    "origin": "https://lukas-rag.vercel.app",
+    "body": {
+     "q": "__proto__"
+    }
+   },
+   "checks": [
+    {
+     "oracle": "http_status_in",
+     "allowed": [
+      204,
+      403
+     ]
+    },
+    {
+     "oracle": "field_equals",
+     "field": "store_calls",
+     "value": 0
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-24",
+   "group": "hit_js",
+   "severity": "Medium",
+   "title": "hit.js: q = constructor",
+   "input": {
+    "kind": "hit_js",
+    "origin": "https://lukas-rag.vercel.app",
+    "body": {
+     "q": "constructor"
+    }
+   },
+   "checks": [
+    {
+     "oracle": "http_status_in",
+     "allowed": [
+      204,
+      403
+     ]
+    },
+    {
+     "oracle": "field_equals",
+     "field": "store_calls",
+     "value": 0
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-25",
+   "group": "hit_js",
+   "severity": "Medium",
+   "title": "hit.js: q = prazdne",
+   "input": {
+    "kind": "hit_js",
+    "origin": "https://lukas-rag.vercel.app",
+    "body": {
+     "q": ""
+    }
+   },
+   "checks": [
+    {
+     "oracle": "http_status_in",
+     "allowed": [
+      204,
+      403
+     ]
+    },
+    {
+     "oracle": "field_equals",
+     "field": "store_calls",
+     "value": 0
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-26",
+   "group": "hit_js",
+   "severity": "Medium",
+   "title": "hit.js: telo neni JSON (retezec)",
+   "input": {
+    "kind": "hit_js",
+    "origin": "https://lukas-rag.vercel.app",
+    "body_raw": "not json {{{"
+   },
+   "checks": [
+    {
+     "oracle": "http_status_in",
+     "allowed": [
+      204,
+      403
+     ]
+    },
+    {
+     "oracle": "field_equals",
+     "field": "store_calls",
+     "value": 0
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-27",
+   "group": "hit_js",
+   "severity": "Medium",
+   "title": "hit.js: telo je null",
+   "input": {
+    "kind": "hit_js",
+    "origin": "https://lukas-rag.vercel.app",
+    "body_raw": null
+   },
+   "checks": [
+    {
+     "oracle": "http_status_in",
+     "allowed": [
+      204,
+      403
+     ]
+    },
+    {
+     "oracle": "field_equals",
+     "field": "store_calls",
+     "value": 0
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-28",
+   "group": "hit_js",
+   "severity": "Medium",
+   "title": "hit.js: telo je cislo",
+   "input": {
+    "kind": "hit_js",
+    "origin": "https://lukas-rag.vercel.app",
+    "body_raw": 42
+   },
+   "checks": [
+    {
+     "oracle": "http_status_in",
+     "allowed": [
+      204,
+      403
+     ]
+    },
+    {
+     "oracle": "field_equals",
+     "field": "store_calls",
+     "value": 0
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-29",
+   "group": "hit_js",
+   "severity": "Medium",
+   "title": "hit.js: q je objekt",
+   "input": {
+    "kind": "hit_js",
+    "origin": "https://lukas-rag.vercel.app",
+    "body": {
+     "q": {
+      "a": 1
+     }
+    }
+   },
+   "checks": [
+    {
+     "oracle": "http_status_in",
+     "allowed": [
+      204,
+      403
+     ]
+    },
+    {
+     "oracle": "field_equals",
+     "field": "store_calls",
+     "value": 0
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-30",
+   "group": "hit_js",
+   "severity": "Medium",
+   "title": "hit.js: cizi origin evil.com s platnou otazkou",
+   "input": {
+    "kind": "hit_js",
+    "origin": "https://evil.com",
+    "body": {
+     "q": "$PRESET0"
+    }
+   },
+   "checks": [
+    {
+     "oracle": "http_status_in",
+     "allowed": [
+      204,
+      403
+     ]
+    },
+    {
+     "oracle": "field_equals",
+     "field": "store_calls",
+     "value": 0
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-31",
+   "group": "hit_js",
+   "severity": "Medium",
+   "title": "hit.js: origin lukas-rag.vercel.app.evil.com (suffix trik)",
+   "input": {
+    "kind": "hit_js",
+    "origin": "https://lukas-rag.vercel.app.evil.com",
+    "body": {
+     "q": "$PRESET0"
+    }
+   },
+   "checks": [
+    {
+     "oracle": "http_status_in",
+     "allowed": [
+      204,
+      403
+     ]
+    },
+    {
+     "oracle": "field_equals",
+     "field": "store_calls",
+     "value": 0
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-32",
+   "group": "hit_js",
+   "severity": "Medium",
+   "title": "hit.js: origin evil.com/lukas-rag.vercel.app (cesta trik)",
+   "input": {
+    "kind": "hit_js",
+    "origin": "https://evil.com/lukas-rag.vercel.app",
+    "body": {
+     "q": "$PRESET0"
+    }
+   },
+   "checks": [
+    {
+     "oracle": "http_status_in",
+     "allowed": [
+      204,
+      403
+     ]
+    },
+    {
+     "oracle": "field_equals",
+     "field": "store_calls",
+     "value": 0
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-33",
+   "group": "hit_js",
+   "severity": "Medium",
+   "title": "hit.js: chybi Origin i Referer",
+   "input": {
+    "kind": "hit_js",
+    "body": {
+     "q": "$PRESET0"
+    }
+   },
+   "checks": [
+    {
+     "oracle": "http_status_in",
+     "allowed": [
+      204,
+      403
+     ]
+    },
+    {
+     "oracle": "field_equals",
+     "field": "store_calls",
+     "value": 0
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-34",
+   "group": "hit_js",
+   "severity": "Medium",
+   "title": "hit.js: metoda GET",
+   "input": {
+    "kind": "hit_js",
+    "origin": "https://lukas-rag.vercel.app",
+    "method": "GET",
+    "body": {
+     "q": "$PRESET0"
+    }
+   },
+   "checks": [
+    {
+     "oracle": "http_status_in",
+     "allowed": [
+      204,
+      403
+     ]
+    },
+    {
+     "oracle": "field_equals",
+     "field": "store_calls",
+     "value": 0
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-35",
+   "group": "hit_js",
+   "severity": "Medium",
+   "title": "hit.js: cizi src se nesmi zapsat do Redisu (CRLF, cesta)",
+   "input": {
+    "kind": "hit_js",
+    "origin": "https://lukas-rag.vercel.app",
+    "body": {
+     "q": "$PRESET0",
+     "src": "evil\r\nHSET x y"
+    }
+   },
+   "checks": [
+    {
+     "oracle": "http_status_in",
+     "allowed": [
+      204
+     ]
+    },
+    {
+     "oracle": "text_absent",
+     "needles": [
+      "evil",
+      "HSET x"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-36",
+   "group": "hit_js",
+   "severity": "Low",
+   "title": "hit.js: podvrzeny Origin (platny hostitel) nafoukne pocitadlo (zname T10)",
+   "input": {
+    "kind": "hit_js",
+    "origin": "https://lukas-rag.vercel.app",
+    "body": {
+     "q": "$PRESET0"
+    }
+   },
+   "checks": [
+    {
+     "oracle": "http_status_in",
+     "allowed": [
+      204,
+      403
+     ]
+    },
+    {
+     "oracle": "field_equals",
+     "field": "store_calls",
+     "value": 0
+    }
+   ],
+   "note": "Documented residual risk T10 in threat-model.md: Origin can be forged by any script. Expected to FAIL; recorded as a known finding."
+  },
+  {
+   "id": "RAG-W-37",
+   "group": "headers",
+   "severity": "Medium",
+   "title": "Zivy web: Content-Security-Policy je nastavena",
+   "input": {
+    "kind": "headers"
+   },
+   "checks": [
+    {
+     "oracle": "http_status_in",
+     "allowed": [
+      200
+     ]
+    },
+    {
+     "oracle": "header_present",
+     "name": "Content-Security-Policy"
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-38",
+   "group": "headers",
+   "severity": "Low",
+   "title": "Zivy web: X-Content-Type-Options: nosniff",
+   "input": {
+    "kind": "headers"
+   },
+   "checks": [
+    {
+     "oracle": "header_contains",
+     "name": "X-Content-Type-Options",
+     "any_of": [
+      "nosniff"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-39",
+   "group": "headers",
+   "severity": "Low",
+   "title": "Zivy web: ochrana proti vlozeni do iframe (X-Frame-Options nebo frame-ancestors)",
+   "input": {
+    "kind": "headers"
+   },
+   "checks": [
+    {
+     "oracle": "framing_protected"
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-40",
+   "group": "headers",
+   "severity": "Low",
+   "title": "Zivy web: Strict-Transport-Security",
+   "input": {
+    "kind": "headers"
+   },
+   "checks": [
+    {
+     "oracle": "header_contains",
+     "name": "Strict-Transport-Security",
+     "any_of": [
+      "max-age"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "RAG-W-41",
+   "group": "headers",
+   "severity": "Low",
+   "title": "Zivy web: Referrer-Policy",
+   "input": {
+    "kind": "headers"
+   },
+   "checks": [
+    {
+     "oracle": "header_present",
+     "name": "Referrer-Policy"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,27 @@
+{
+ "payload": {
+  "url": "https://lukas-rag.vercel.app/",
+  "method": "GET",
+  "purpose": "passive header check"
+ },
+ "response": {
+  "status": 200,
+  "headers": {
+   "Access-Control-Allow-Origin": "*",
+   "Age": "15594",
+   "Cache-Control": "public, max-age=0, must-revalidate",
+   "Content-Disposition": "inline",
+   "Content-Encoding": "br",
+   "Content-Type": "text/html; charset=utf-8",
+   "Date": "Wed, 21 Oct 2026 19:08:12 GMT",
+   "Etag": "W/\"ad63ab531bfb67ef1bc55b1b31789bb9\"",
+   "Last-Modified": "Wed, 21 Oct 2026 14:48:18 GMT",
+   "Server": "Vercel",
+   "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
+   "X-Vercel-Cache": "HIT",
+   "X-Vercel-Id": "fra1::ptcz6-1792609692569-ee9917b24889",
+   "Transfer-Encoding": "chunked"
+  }
+ },
+ "cost_usd": 0.0
+}

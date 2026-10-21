@@ -1,0 +1,38 @@
+{
+ "payload": {
+  "fn": "service.ask",
+  "question": "Wie viele Urlaubstage habe ich nach dem tschechischen Arbeitsgesetzbuch? Bitte antworte auf Deutsch.",
+  "laws": null,
+  "llm": "deepseek/deepseek-v4.1-flash",
+  "answer_model": "deepseek/deepseek-v4-pro",
+  "system_sha": "e0cfc865f7c2"
+ },
+ "response": {
+  "service_error": null,
+  "text": "Nach dem tschechischen Arbeitsgesetzbuch beträgt der Mindesturlaub 4 Wochen pro Kalenderjahr [1]. Für Arbeitnehmer von Arbeitgebern nach § 109 Abs. 3 (z. B. Staat, Gemeinden) sind es 5 Wochen [2]. Pädagogische und akademische Mitarbeiter von Hochschulen haben Anspruch auf 8 Wochen [3].\n\nDie genaue Anzahl der Tage hängt von Ihrer wöchentlichen Arbeitszeit ab (z. B. bei 5-Tage-Woche: 4 Wochen = 20 Tage, 5 Wochen = 25 Tage, 8 Wochen = 40 Tage).",
+  "evidence_status": "sufficient",
+  "n_passages": 5,
+  "passages_supplied": [
+   "ZP § 212 odst. 1",
+   "ZP § 212 odst. 2",
+   "ZP § 212 odst. 3",
+   "ZP § 217 odst. 1",
+   "ZP § 223 odst. 3"
+  ],
+  "citations": [
+   "ZP § 212 odst. 1",
+   "ZP § 212 odst. 2",
+   "ZP § 212 odst. 3"
+  ],
+  "rewritten_query": "Kolik dnů dovolené mi náleží podle zákoníku práce?",
+  "app_checks": {
+   "bad_citations": [],
+   "unsupported_numbers": [
+    "20",
+    "25",
+    "40"
+   ]
+  }
+ },
+ "cost_usd": 0.001858395
+}

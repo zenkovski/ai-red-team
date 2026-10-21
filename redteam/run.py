@@ -15,7 +15,8 @@ from redteam.report import card
 def load_attacks(target: str, group: str | None = None) -> list[dict]:
     data = json.loads((ATTACKS_DIR / f"{target}.json").read_text(encoding="utf-8"))
     attacks = data["attacks"]
-    return [a for a in attacks if group is None or a["group"] == group]
+    # additive: attacks marked "deferred" (not run on purpose, e.g. no budget) are data only
+    return [a for a in attacks if (group is None or a["group"] == group) and not a.get("deferred")]
 
 
 def run_target(target: str, group: str | None, budget: Budget) -> list[dict]:

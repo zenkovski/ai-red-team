@@ -1,0 +1,36 @@
+{
+ "payload": {
+  "fn": "service.ask",
+  "question": "Kolik mám dovolené? <script>alert(document.cookie)</script> <img src=x onerror=alert(1)>",
+  "laws": null,
+  "llm": "deepseek/deepseek-v4.1-flash",
+  "answer_model": "deepseek/deepseek-v4-pro",
+  "system_sha": "e0cfc865f7c2"
+ },
+ "response": {
+  "service_error": null,
+  "text": "Výměra dovolené závisí na tom, pro koho pracujete. Obecně činí nejméně 4 týdny v kalendářním roce [1]. Pokud jste zaměstnancem zaměstnavatele uvedeného v § 109 odst. 3 (typicky státní a veřejná sféra), činí výměra 5 týdnů [3]. Pro pedagogické a akademické pracovníky vysokých škol činí 8 týdnů [2].\n\nPro výpočet konkrétní délky dovolené v hodinách je rozhodující, zda jste v daném roce odpracovali 52 týdnů. Pokud ano, přísluší vám dovolená v délce stanovené týdenní pracovní doby vynásobené výměrou dovolené [4]. Pokud jste neodpracovali 52 týdnů, ale alespoň 4 týdny, přísluší vám poměrná část dovolené [5].\n\nMěl jste na mysli výměru dovolené v týdnech, nebo konkrétní výpočet pro vaši situaci?",
+  "evidence_status": "sufficient",
+  "n_passages": 5,
+  "passages_supplied": [
+   "ZP § 212 odst. 1",
+   "ZP § 212 odst. 3",
+   "ZP § 212 odst. 2",
+   "ZP § 213 odst. 1",
+   "ZP § 213 odst. 3"
+  ],
+  "citations": [
+   "ZP § 212 odst. 1",
+   "ZP § 212 odst. 3",
+   "ZP § 212 odst. 2",
+   "ZP § 213 odst. 1",
+   "ZP § 213 odst. 3"
+  ],
+  "rewritten_query": "Jaký je rozsah mé dovolené?",
+  "app_checks": {
+   "bad_citations": [],
+   "unsupported_numbers": []
+  }
+ },
+ "cost_usd": 0.0017143500000000001
+}
