@@ -1,0 +1,9 @@
+[project]
+name = "ai-red-team"
+version = "0.1.0"
+description = "Attacks our own AI apps. Attacks are data, oracles are code."
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

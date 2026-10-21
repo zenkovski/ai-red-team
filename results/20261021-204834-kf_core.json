@@ -1,0 +1,245 @@
+{
+ "targets": "kf_core",
+ "offline": false,
+ "run_cost_usd": 0.0,
+ "results": [
+  {
+   "target": "kf_core",
+   "id": "KF-C-01",
+   "group": "control",
+   "title": "Kontrola: čistá faktura musí projít (jinak harness lže)",
+   "severity": "High",
+   "checks": [
+    {
+     "oracle": "decision_is",
+     "expected": "APPROVE"
+    }
+   ],
+   "defended": true,
+   "reasons": [
+    "ok decision_is: decision=APPROVE, expected APPROVE"
+   ],
+   "observation": {
+    "decision": "APPROVE",
+    "codes": [],
+    "error": null
+   }
+  },
+  {
+   "target": "kf_core",
+   "id": "KF-C-02",
+   "group": "bank",
+   "title": "Skutečný dodavatel, cizí účet (o jednu číslici jiný)",
+   "severity": "High",
+   "checks": [
+    {
+     "oracle": "decision_not_approve"
+    },
+    {
+     "oracle": "has_code",
+     "code": "BANK_ACCOUNT_CHANGED"
+    }
+   ],
+   "defended": true,
+   "reasons": [
+    "ok decision_not_approve: decision=STOP",
+    "ok has_code: codes=['BANK_ACCOUNT_CHANGED']"
+   ],
+   "observation": {
+    "decision": "STOP",
+    "codes": [
+     "BANK_ACCOUNT_CHANGED"
+    ],
+    "error": null
+   }
+  },
+  {
+   "target": "kf_core",
+   "id": "KF-C-03",
+   "group": "bank",
+   "title": "Účet s celošířkovými číslicemi v kódu banky (vypadá stejně)",
+   "severity": "High",
+   "checks": [
+    {
+     "oracle": "decision_not_approve"
+    }
+   ],
+   "defended": true,
+   "reasons": [
+    "ok decision_not_approve: decision=STOP"
+   ],
+   "observation": {
+    "decision": "STOP",
+    "codes": [
+     "BANK_ACCOUNT_CHANGED"
+    ],
+    "error": null
+   }
+  },
+  {
+   "target": "kf_core",
+   "id": "KF-C-04",
+   "group": "arithmetic",
+   "title": "Sazba DPH 50 %, všechny součty sedí (neexistující sazba)",
+   "severity": "Medium",
+   "checks": [
+    {
+     "oracle": "decision_not_approve"
+    }
+   ],
+   "defended": false,
+   "reasons": [
+    "FAIL decision_not_approve: decision=APPROVE"
+   ],
+   "observation": {
+    "decision": "APPROVE",
+    "codes": [],
+    "error": null
+   }
+  },
+  {
+   "target": "kf_core",
+   "id": "KF-C-05",
+   "group": "guard",
+   "title": "Anglická parafráze pokynu bez klíčových slov strážce",
+   "severity": "Low",
+   "checks": [
+    {
+     "oracle": "has_code",
+     "code": "TEXT_FOR_AI"
+    }
+   ],
+   "defended": false,
+   "reasons": [
+    "FAIL has_code: codes=[]"
+   ],
+   "observation": {
+    "decision": "APPROVE",
+    "codes": [],
+    "error": null
+   }
+  },
+  {
+   "target": "kf_core",
+   "id": "KF-C-06",
+   "group": "tolerance",
+   "title": "Cena toneru o 0,99 % vyšší než v objednávce",
+   "severity": "Low",
+   "checks": [
+    {
+     "oracle": "decision_not_approve"
+    }
+   ],
+   "defended": false,
+   "reasons": [
+    "FAIL decision_not_approve: decision=APPROVE"
+   ],
+   "observation": {
+    "decision": "APPROVE",
+    "codes": [],
+    "error": null
+   }
+  },
+  {
+   "target": "kf_core",
+   "id": "KF-C-07",
+   "group": "duplicate",
+   "title": "Stejná faktura znovu, v čísle písmeno O místo nuly",
+   "severity": "High",
+   "checks": [
+    {
+     "oracle": "decision_not_approve"
+    }
+   ],
+   "defended": true,
+   "reasons": [
+    "ok decision_not_approve: decision=REVIEW"
+   ],
+   "observation": {
+    "decision": "REVIEW",
+    "codes": [
+     "QTY_OVER_ORDERED",
+     "QTY_OVER_RECEIVED",
+     "QTY_OVER_ORDERED",
+     "QTY_OVER_RECEIVED",
+     "POSSIBLE_DUPLICATE"
+    ],
+    "error": null
+   }
+  },
+  {
+   "target": "kf_core",
+   "id": "KF-C-08",
+   "group": "duplicate",
+   "title": "Rozdělená fakturace: nejdřív 20 papírů, pak celá objednávka znovu",
+   "severity": "High",
+   "checks": [
+    {
+     "oracle": "decision_not_approve"
+    },
+    {
+     "oracle": "has_code",
+     "code": "QTY_OVER_ORDERED"
+    }
+   ],
+   "defended": true,
+   "reasons": [
+    "ok decision_not_approve: decision=REVIEW",
+    "ok has_code: codes=['QTY_OVER_ORDERED', 'QTY_OVER_RECEIVED']"
+   ],
+   "observation": {
+    "decision": "REVIEW",
+    "codes": [
+     "QTY_OVER_ORDERED",
+     "QTY_OVER_RECEIVED"
+    ],
+    "error": null
+   }
+  },
+  {
+   "target": "kf_core",
+   "id": "KF-C-09",
+   "group": "input",
+   "title": "Množství NaN (nečíslo) v položce",
+   "severity": "Medium",
+   "checks": [
+    {
+     "oracle": "decision_not_approve"
+    }
+   ],
+   "defended": false,
+   "reasons": [
+    "crash: InvalidOperation: [<class 'decimal.InvalidOperation'>]"
+   ],
+   "observation": {
+    "decision": null,
+    "codes": [],
+    "error": "InvalidOperation: [<class 'decimal.InvalidOperation'>]"
+   }
+  },
+  {
+   "target": "kf_core",
+   "id": "KF-C-10",
+   "group": "duplicate",
+   "title": "Druhá faktura na stejnou objednávku, číslo objednávky malými písmeny",
+   "severity": "High",
+   "checks": [
+    {
+     "oracle": "decision_not_approve"
+    }
+   ],
+   "defended": true,
+   "reasons": [
+    "ok decision_not_approve: decision=REVIEW"
+   ],
+   "observation": {
+    "decision": "REVIEW",
+    "codes": [
+     "PO_MISSING",
+     "POSSIBLE_DUPLICATE"
+    ],
+    "error": null
+   }
+  }
+ ]
+}
