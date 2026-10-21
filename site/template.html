@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#040a0b">
 <meta property="og:title" content="AI Red-Team · útoky na vlastní AI aplikace">
 <meta property="og:description" content="Stovky útoků na kontrolu faktur a RAG demo. Prošlo/selhalo rozhoduje kód. Nálezy s kroky, důkazy a opravami.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23CDFF9B'/%3E%3Cpath d='M16 6l8 3v6c0 5-3.4 9-8 11-4.6-2-8-6-8-11V9z' fill='none' stroke='%23142a05' stroke-width='2.6' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23FF4545'/%3E%3Cpath d='M16 6l8 3v6c0 5-3.4 9-8 11-4.6-2-8-6-8-11V9z' fill='none' stroke='%23ffffff' stroke-width='2.6' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=JetBrains+Mono:wght@400;500&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
@@ -52,7 +52,7 @@ html[lang="en"] .cs{display:none !important}
 .nav{position:sticky;top:12px;z-index:30;display:flex;justify-content:center;margin-top:12px;pointer-events:none}
 .pill{pointer-events:auto;display:flex;align-items:center;gap:4px;background:rgb(var(--bg-rgb) / .94);border:1px solid var(--line-2);border-radius:999px;padding:6px 6px 6px 14px;box-shadow:0 10px 40px rgba(0,0,0,.35);max-width:calc(100vw - 24px)}
 .logo{display:flex;align-items:center;gap:9px;font-family:var(--display);font-weight:700;font-size:15px;margin-right:8px;text-decoration:none;white-space:nowrap}
-.logo .m{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:linear-gradient(140deg,var(--accent),var(--accent-2));box-shadow:0 0 18px var(--glow)}
+.logo .m{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:linear-gradient(140deg,#ff5a5a,#d42a2a);box-shadow:0 0 18px rgb(255 69 69 / .45)}
 .logo .m svg{width:15px;height:15px}
 .pill a.l{font-size:13.5px;color:var(--soft);text-decoration:none;padding:7px 11px;border-radius:999px;white-space:nowrap}
 .pill a.l:hover{background:var(--panel-2);color:var(--text)}
@@ -135,7 +135,7 @@ footer{margin:96px 0 40px;padding-top:22px;border-top:1px solid var(--line);colo
 <div class="bg"><i></i></div>
 
 <nav class="nav"><div class="pill">
-  <a class="logo" href="#top"><span class="m"><svg viewBox="0 0 32 32"><path d="M16 4l10 4v8c0 6-4.3 10.6-10 12-5.7-1.4-10-6-10-12V8z" fill="none" stroke="var(--accent-ink)" stroke-width="3" stroke-linejoin="round"/></svg></span>AI Red-Team</a>
+  <a class="logo" href="#top"><span class="m"><svg viewBox="0 0 32 32"><path d="M16 4l10 4v8c0 6-4.3 10.6-10 12-5.7-1.4-10-6-10-12V8z" fill="none" stroke="#ffffff" stroke-width="3" stroke-linejoin="round"/></svg></span>AI Red-Team</a>
   <a class="l" href="#card"><span class="cs">Vysvědčení</span><span class="en">Report card</span></a>
   <a class="l" href="#how"><span class="cs">Jak to funguje</span><span class="en">How it works</span></a>
   <a class="l" href="#findings"><span class="cs">Nálezy</span><span class="en">Findings</span></a>
