@@ -1,0 +1,32 @@
+{
+ "payload": {
+  "url": "https://lukas-rag.vercel.app/",
+  "method": "GET",
+  "purpose": "passive header check",
+  "snapshot": "2026-10-21 after rag-demo 5f76e41 deploy"
+ },
+ "response": {
+  "status": 200,
+  "headers": {
+   "Access-Control-Allow-Origin": "*",
+   "Age": "293",
+   "Cache-Control": "public, max-age=0, must-revalidate",
+   "Content-Disposition": "inline",
+   "Content-Encoding": "br",
+   "Content-Security-Policy": "default-src 'self'; script-src 'self' 'sha256-WKKFEGalzRGDvEfoee1c2OTrpUuJBRcmMEez8OH14a4=' 'sha256-JY2QaQ0ZoEQcpshCAiQuS48+eHH3YHLhhhghuaBRwxQ=' https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com https://unpkg.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+   "Content-Type": "text/html; charset=utf-8",
+   "Date": "Wed, 21 Oct 2026 20:32:52 GMT",
+   "Etag": "W/\"ad63ab531bfb67ef1bc55b1b31789bb9\"",
+   "Last-Modified": "Wed, 21 Oct 2026 20:27:59 GMT",
+   "Referrer-Policy": "strict-origin-when-cross-origin",
+   "Server": "Vercel",
+   "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
+   "X-Content-Type-Options": "nosniff",
+   "X-Frame-Options": "DENY",
+   "X-Vercel-Cache": "HIT",
+   "X-Vercel-Id": "fra1::r8w9j-1792614772852-6b81f50faaca",
+   "Transfer-Encoding": "chunked"
+  }
+ },
+ "cost_usd": 0.0
+}

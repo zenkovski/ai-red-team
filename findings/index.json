@@ -158,8 +158,8 @@
   "severity": "Low",
   "title_cs": "Živý web: chybí X-Content-Type-Options, ochrana proti iframe a Referrer-Policy",
   "title_en": "Live site lacks nosniff, frame protection and Referrer-Policy",
-  "status": "known",
-  "fix": ""
+  "status": "fixed",
+  "fix": "RAG-Demo 5f76e41"
  },
  {
   "id": "RT-RAG-05",

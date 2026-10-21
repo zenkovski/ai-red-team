@@ -25,3 +25,6 @@ Další útoky stejného nálezu:
 
 ## Návrh opravy
 `vercel.json` → `headers`: `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY` (nebo `frame-ancestors` v CSP), `Referrer-Policy: strict-origin-when-cross-origin`. Dopad: stránku může kdokoli vložit do iframe (clickjacking na živé otázky), ale web nemá přihlášení ani citlivé akce, takže je to Low.
+
+## Stav
+**Opraveno** 21. 10. 2026 v RAG-Demo 5f76e41 spolu s RT-RAG-03 (site/vercel.json). Nasazeno, živá kontrola hlaviček 5/5.

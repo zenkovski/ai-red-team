@@ -22,17 +22,17 @@ Attacks are data. Pass or fail is decided by code, never by an AI.
 | Invoice AI reader, injection (`kf_reader`) | 40/40 | 40/40 |
 | RAG MCP server (`rag_mcp`) | 34/34 | 34/34 |
 | RAG REST API + key (`rag_rest`) | 58/61 | 60/61 |
-| RAG web: XSS, counter, headers (`rag_web`) | 34/41 | 34/41 * |
+| RAG web: XSS, counter, headers (`rag_web`) | 34/41 | 38/41 |
 | RAG AI answers, local (`rag_service`) | 21/26 | 21/26 * |
 | RAG live site, 5 questions (`rag_live`) | 4/5 | 4/5 * |
-| **Total** | **269/347** | **288/347** |
+| **Total** | **269/347** | **292/347** |
 
-\* Recorded before the fixes. The RAG fixes (CSP headers, citation guard) are in the repo with tests and reach these rows after deploy.
+\* AI answers recorded before the fix. The citation guard (RT-RAG-07) is deployed and verified by tests on the stored answers; the live questions were not re-asked (5-question limit).
 
-`kf_core` includes 42 **boundary probes** (41 injection-guard bypass variants and 1 price-tolerance probe). They look for where a secondary layer gives up, so most get through by design: the guard only raises a case to a human, the rules decide. Without them: **281 of 305 real attacks defended after fixes.**
+`kf_core` includes 42 **boundary probes** (41 injection-guard bypass variants and 1 price-tolerance probe). They look for where a secondary layer gives up, so most get through by design: the guard only raises a case to a human, the rules decide. Without them: **285 of 305 real attacks defended after fixes.**
 
-**23 findings, 7 Medium, 0 High. All 7 Medium are fixed** in the app repos, each with a regression test.
-The rest are Low and recorded as known. See [`findings/`](findings/).
+**23 findings, 7 Medium, 0 High. All 7 Medium are fixed** in the app repos, each with a regression test, and deployed.
+One Low (RT-RAG-04) was fixed along the way. The rest are Low and recorded as known. See [`findings/`](findings/).
 
 Notable:
 - The AI invoice reader did **not** follow any of 40 injections, including "the correct account is …" naming the real supplier's account (19/19).

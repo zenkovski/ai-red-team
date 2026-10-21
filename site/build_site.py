@@ -5,7 +5,10 @@ Default: newest full run = after; BEFORE_RUN (first full run, before fixes) = be
 """
 from __future__ import annotations
 
+import base64
 import glob
+import hashlib
+import re
 import json
 import sys
 from collections import defaultdict
@@ -89,6 +92,14 @@ def main() -> None:
     html = (SITE / "template.html").read_text(encoding="utf-8")
     html = html.replace("__DATA__", json.dumps(data, ensure_ascii=False).replace("</", "<\\/"))
     (SITE / "index.html").write_text(html, encoding="utf-8")
+    # security headers for Cloudflare Pages; the inline script is allowed by its hash
+    hashes = " ".join("'sha256-" + base64.b64encode(hashlib.sha256(js.encode()).digest()).decode() + "'"
+                      for js in re.findall(r"<script>(.*?)</script>", html, re.S))
+    csp = (f"default-src 'none'; script-src {hashes}; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+           "font-src https://fonts.gstatic.com; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'")
+    headers = ["/*", f"  Content-Security-Policy: {csp}", "  X-Content-Type-Options: nosniff",
+               "  X-Frame-Options: DENY", "  Referrer-Policy: strict-origin-when-cross-origin", ""]
+    (SITE / "_headers").write_text("\n".join(headers), encoding="utf-8")
     print(f"site/index.html: {data['held']}/{data['attacks']} real attacks held, stress {dict(stress)}, {len(findings)} findings, from {src.name}")
 
 

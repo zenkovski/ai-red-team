@@ -23,6 +23,7 @@ from redteam import RAG_DIR, WORKSPACE
 from redteam.targets.rag_common import expand, short
 
 SITE = RAG_DIR / "site"
+LIVE_SNAPSHOT = "2026-10-21 after rag-demo 5f76e41 deploy"
 LIVE_URL = "https://lukas-rag.vercel.app/"
 D3_LOCAL = WORKSPACE / "MG-Lab" / "repo" / "node_modules" / "d3" / "dist" / "d3.min.js"
 HARNESS = Path(__file__).with_name("rag_hit_harness.cjs")
@@ -147,7 +148,9 @@ def _run_headers(inp: dict, ctx) -> dict:
         r = requests.get(LIVE_URL, timeout=20, headers={"User-Agent": "redteam-passive-header-check/1.0"})
         return {"status": r.status_code, "headers": dict(r.headers)}, 0.0
 
-    return ctx["budget"].call("rag_web_live", {"url": LIVE_URL, "method": "GET", "purpose": "passive header check"}, fetch)
+    # bump LIVE_SNAPSHOT after a deploy to take one fresh passive look (old snapshots stay in the cache)
+    return ctx["budget"].call("rag_web_live", {"url": LIVE_URL, "method": "GET", "purpose": "passive header check",
+                                               "snapshot": LIVE_SNAPSHOT}, fetch)
 
 
 def run(attack: dict, ctx=None) -> dict:
